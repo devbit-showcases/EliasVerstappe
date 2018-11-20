@@ -44,3 +44,27 @@ int QT1070::get_chip_id() {
     return chipID;
 }
 
+QT1070::Key QT1070::button_pressed() {
+    int buttonPressed = 0;
+
+    // Write
+    char buffer[] = { 0x03 };
+    write(i2cfile, buffer, 1);
+
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    // Read
+    if (read(i2cfile, buffer, 1) != 1) {
+        std::cout << "Failed to read from the i2c bus.\n" << std::endl;
+    }
+    else {
+        buttonPressed = (int)buffer[0];
+    }
+
+
+    return (Key)buttonPressed;
+}
+
+
+
+

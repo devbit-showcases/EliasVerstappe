@@ -14,15 +14,27 @@
 
 class QT1070 {
 
-   public:
-     QT1070();
-     int get_chip_id();
+public:
+     enum Key {
+          UP = 1,
+          DOWN = 2,
+          LEFT = 4,
+          RIGHT = 8,
+          X = 16,
+          A = 32,
+          B = 64
+     };
 
-   private:
-     const static int I2CADDRESS = 0x1B;
-     const static std::string DEVICE;
+     public:
+          QT1070();
+          int get_chip_id();
+          Key button_pressed();
 
-     int i2cfile;
+     private:
+          const static int I2CADDRESS = 0x1B;
+          const static std::string DEVICE;
+
+          int i2cfile;
 
 };
 
