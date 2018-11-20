@@ -1,3 +1,4 @@
 .vscode
 nubg_touchberry
 bin/
+*.o

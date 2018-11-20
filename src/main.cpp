@@ -17,7 +17,7 @@ using namespace std;
 
 int main(void) {
 
-  cout << "\n\n-----------------------\nStarting touchberry application" << endl;
+  cout << "\n\n------------------------------\nStarting touchberry application" << endl;
   QT1070 touch;
 //   const std::string DEVICE = "/dev/i2c-1";
 //   const unsigned int BUFFER_SIZE = 10;
