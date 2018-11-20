@@ -23,10 +23,13 @@ QT1070::QT1070() {
 }
 
 int QT1070::get_chip_id() {
+    int chipID = 0;
+
+    
     // Write
     char buffer[] = { 0x00 };
     write(i2cfile, buffer, 1);
-    int chipID = 0;
+
 
     std::this_thread::sleep_for(std::chrono::milliseconds(5));
     // Read
