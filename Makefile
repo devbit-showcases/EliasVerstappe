@@ -14,11 +14,11 @@ BUILDDIR=bin
 OBJS := $(patsubst %.cpp,%.o,$(shell find $(SRCDIR) -name '*.cpp'))
 all: makebuildir $(TARGET)
 $(TARGET) : $(OBJS)
-    $(CC) $(LDFLAGS) -o $(BUILDDIR)/$@ $(OBJS) $(LIBS)
+	$(CC) $(LDFLAGS) -o $(BUILDDIR)/$@ $(OBJS) $(LIBS)
 %.o : %.cpp
-    $(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 clean :
-    rm -rf $(BUILDDIR)
-    rm -f $(OBJS)
+	rm -rf $(BUILDDIR)
+	rm -f $(OBJS)
 makebuildir:
-    mkdir -p $(BUILDDIR)
+	mkdir -p $(BUILDDIR)

@@ -7,8 +7,8 @@ This project is an assignment from the 'IoT devices' course. The intention is to
 
 ## Usage example
 
-To execute this program, log in to your Pi, navigate to the correct directory and type `make` in the terminal.
-
+To compile this program, log in to your Pi, navigate to the correct directory and type `make` in the terminal.
+To compile AND execute, execute `make && ./bin/nubg_touchberry` in the terminal.
 
 
 ## Development setup
