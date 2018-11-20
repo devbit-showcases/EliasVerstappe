@@ -7,6 +7,7 @@
 #include <sys/ioctl.h>
 #include <linux/i2c-dev.h>  // I2C_SLAVE
 #include <string>
+#include <thread>
 
 
 
