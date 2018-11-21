@@ -4,11 +4,9 @@
 const std::string QT1070::DEVICE = "/dev/i2c-1";
 
 QT1070::QT1070() {
-    
-    std::cout << "\n\n-------------------------------" << std::endl;
-    std::cout << "Starting touchberry application" << std::endl;
-    std::cout << "-------------------------------\n" << std::endl; 
   
+    std::cout << "\033[4;35mConnecting to QT1070...\033[0m" << std::endl;
+
   if ((i2cfile = open(DEVICE.c_str(), O_RDWR)) < 0) {
       std::cout << "Could not open bus" << std::endl;
       exit(1);
