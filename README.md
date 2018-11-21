@@ -41,12 +41,17 @@ If a change is made, please add it to the change log.
 ## License and author info
 See the ``LICENSE`` file for details. In summary, this project is licensed under the MIT license, or public domain if desired and recognized in your jurisdiction.
 
+## Sources
+Terminal text customization; visited on 21/11/2018; 
+https://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-linux-terminal
+
+
 
 
 ## Extra's
 
 The buttons and their values   
-![buttons_and_their_values](/media/buttons_and_their_values.png)
+![buttons_and_their_values](./media/buttons_and_their_values.png)
 
 
 
