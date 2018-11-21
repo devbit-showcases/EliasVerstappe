@@ -14,16 +14,16 @@
 
 class QT1070 {
 
-public:
-     enum Key {
-          UP = 1,
-          DOWN = 2,
-          LEFT = 4,
-          RIGHT = 8,
-          X = 16,
-          A = 32,
-          B = 64
-     };
+     public:
+          enum Key {
+               LEFT = 1,
+               RIGHT = 2,
+               UP = 4,
+               DOWN = 8,
+               B = 16,
+               A = 32,
+               X = 64
+          };
 
      public:
           QT1070();
