@@ -57,8 +57,12 @@ int main(void) {
 
   led.setGroupBrightness(1.0);
 
+  cout << "REGISTER 0x12: " << led.readRegister(0x12) << endl; 
+
+  cout << "ERROR REGISTER 1: " << led.readRegister(0x1D) << endl;
+  cout << "ERROR REGISTER 2: " << led.readRegister(0x1E) << endl;
+  
   cout << "REGISTER 0x00 (after led brightness): " << led.readRegister(0x00) << endl;
-  cout << "REGISTER 0x12 (GroupPWM): " << led.readRegister(0x12) << endl;  
 
   while (1) {
   button = (Key)touch.button_pressed();
@@ -67,13 +71,7 @@ int main(void) {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
-    // if (brightness < 255) {
-    //   brightness++;
-    // } else if (brightness >= 255) {
-    //   brightness--;
-    // }
-
-    
+      
 
   }
 

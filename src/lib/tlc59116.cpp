@@ -43,8 +43,8 @@ void TLC59116::setOutputState(int ledout0, int ledout1, int ledout2, int ledout3
     setRegister(0x17,ledout3);
 }
 
-void TLC59116::setRegister(int reg, int value) {
-    char data[] = {NO_AUTO_INCREMENT + reg, value};
+void TLC59116::setRegister(char reg, char value) {
+    char data[] = {(char)reg, value};
     write(i2cfile, data, 2);
 }
 

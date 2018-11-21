@@ -30,9 +30,8 @@ class TLC59116 {
         int i2cfile;
 
     private:
-        void setRegister(int reg, int value);
+        void setRegister(char reg, char value);
 
-        static const int NO_AUTO_INCREMENT = 0x00;
 
         static const int GRPPWM = 0x12;
         
