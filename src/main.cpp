@@ -1,6 +1,7 @@
 
 using namespace std;
 #include "lib/qt1070.h"
+#include "lib/tlc59116.h"
 
 enum Key {
   NONE = 0,
@@ -41,16 +42,40 @@ class KeyConverter {
 
 
 int main(void) {
- 
+
+    std::cout << "\n\n\033[7m-------------------------------" << std::endl;
+    std::cout << "Starting touchberry application" << std::endl;
+    std::cout << "-------------------------------\033[0m\n" << std::endl; 
+    
+
   QT1070 touch;
+  TLC59116 led;
   Key button;
+
+  led.enable();
+
+  int brightness = 0;
+
+
+
+
+
 
   while (1) {
   button = (Key)touch.button_pressed();
     if (button != NONE) {
         cout << "Button pressed: " << KeyConverter::key_to_string(button) << endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(25));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+
+    if (brightness < 255) {
+      brightness++;
+    } else if (brightness >= 255) {
+      brightness--;
+    }
+
+    led.setGroupBrightness((float)brightness);
+
   }
 
   return 0;
