@@ -3,6 +3,7 @@ using namespace std;
 #include "lib/qt1070.h"
 
 enum Key {
+  NONE = 0,
   LEFT = 1,
   RIGHT = 2,
   UP = 4,
@@ -31,6 +32,8 @@ class KeyConverter {
           return "B";
         case A:
           return "A";
+        case NONE:
+          return "NONE";  
       }
       return "";     // Unknown key? Should never happen
     }
@@ -38,28 +41,17 @@ class KeyConverter {
 
 
 int main(void) {
-
-  
+ 
   QT1070 touch;
-  cout << "Chip ID is: " << touch.get_chip_id() << endl;
   Key button;
 
-
   while (1) {
-
   button = (Key)touch.button_pressed();
-
-    if (button != NULL) {
+    if (button != NONE) {
         cout << "Button pressed: " << KeyConverter::key_to_string(button) << endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(25));
     }
-
-    
   }
-
-
-
-
 
   return 0;
 }

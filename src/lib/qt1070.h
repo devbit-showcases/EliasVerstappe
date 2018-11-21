@@ -16,6 +16,7 @@ class QT1070 {
 
      public:
           enum Key {
+               NONE = 0,
                LEFT = 1,
                RIGHT = 2,
                UP = 4,
