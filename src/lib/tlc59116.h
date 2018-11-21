@@ -15,6 +15,7 @@ class TLC59116 {
         TLC59116();
         void setGroupBrightness(float brightness);
         void enable();
+        int readRegister(char address);
 
 
     protected:
@@ -32,7 +33,7 @@ class TLC59116 {
         void setRegister(int reg, int value);
 
         static const int NO_AUTO_INCREMENT = 0x00;
-        
+
         static const int GRPPWM = 0x12;
         
         

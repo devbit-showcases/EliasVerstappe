@@ -33,7 +33,7 @@ void TLC59116::initialize() {
 
 void TLC59116::enable() {
     // should readout register state first
-    setRegister(0,0);
+    setRegister(0x00, 0);
 }
 
 void TLC59116::setOutputState(int ledout0, int ledout1, int ledout2, int ledout3) {
@@ -46,4 +46,11 @@ void TLC59116::setOutputState(int ledout0, int ledout1, int ledout2, int ledout3
 void TLC59116::setRegister(int reg, int value) {
     char data[] = {NO_AUTO_INCREMENT + reg, value};
     write(i2cfile, data, 2);
+}
+
+int TLC59116::readRegister(char address) {
+    char data[] = { address };
+    read(i2cfile, data, 1);
+
+    return data[0];
 }
