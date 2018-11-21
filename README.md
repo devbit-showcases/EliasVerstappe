@@ -45,6 +45,8 @@ See the ``LICENSE`` file for details. In summary, this project is licensed under
 Terminal text customization; visited on 21/11/2018; 
 https://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-linux-terminal
 
+TLC59116 library; visited on 21/11/2018; 
+https://os.mbed.com/users/sillevl/code/TLC59116/
 
 
 
