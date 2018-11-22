@@ -43,37 +43,49 @@ class KeyConverter {
 
 int main(void) {
 
-    std::cout << "\n\n\033[7m-------------------------------" << std::endl;
-    std::cout << "Starting touchberry application" << std::endl;
-    std::cout << "-------------------------------\033[0m\n" << std::endl; 
+    std::cout << "\n\n\033[7m+-------------------------------+" << std::endl;
+    std::cout << "|Starting touchberry application|" << std::endl;
+    std::cout << "+-------------------------------+\033[0m\n" << std::endl; 
     
 
-  QT1070 touch;
+  //QT1070 touch;
   TLC59116 led;
-  Key button;
+  // Key button;
 
-  led.enable();
-  cout << "REGISTER 0x00 (before led brightness): " << led.readRegister(0x00) << endl;
 
-  led.setGroupBrightness(1.0);
 
-  cout << "REGISTER 0x12: " << led.readRegister(0x12) << endl; 
+  // cout << "REGISTER 0x00 (before led brightness): " << led.readRegister(0x00) << endl;
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-  cout << "ERROR REGISTER 1: " << led.readRegister(0x1D) << endl;
-  cout << "ERROR REGISTER 2: " << led.readRegister(0x1E) << endl;
+  led.setLed(10, 0.5);
+
+
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  led.setGroupBrightness(0.1);
+
+
   
-  cout << "REGISTER 0x00 (after led brightness): " << led.readRegister(0x00) << endl;
 
-  while (1) {
-  button = (Key)touch.button_pressed();
-    if (button != NONE) {
-        cout << "Button pressed: " << KeyConverter::key_to_string(button) << endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
+
+  // cout << "REGISTER 0x12: " << led.readRegister(0x12) << endl; 
+
+  // cout << "ERROR REGISTER 1: " << led.readRegister(0x1D) << endl;
+  // cout << "ERROR REGISTER 2: " << led.readRegister(0x1E) << endl;
+  
+  // cout << "REGISTER 0x00 (after led brightness): " << led.readRegister(0x00) << endl;
+
+  // while (1) {
+  // button = (Key)touch.button_pressed();
+  //   if (button != NONE) {
+  //       cout << "Button pressed: " << KeyConverter::key_to_string(button) << endl;
+  //       std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  //   }
 
       
 
-  }
+  // }
 
   return 0;
 }

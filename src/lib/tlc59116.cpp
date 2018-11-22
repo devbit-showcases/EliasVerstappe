@@ -18,10 +18,16 @@ TLC59116::TLC59116() {
         exit(1);
     }
     std::cout << "Ready to communicate with slave device\n" << std::endl;
+    initialize();
+
 }
 
 void TLC59116::setGroupBrightness(float brightness) {
     setRegister(GRPPWM, brightness * 255.0);
+}
+
+void TLC59116::setLed(int index, float brightness) {
+    setRegister((FIRSTLED + (15-index)), (brightness * 255.0));
 }
 
 void TLC59116::initialize() {

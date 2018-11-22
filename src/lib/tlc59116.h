@@ -16,6 +16,7 @@ class TLC59116 {
         void setGroupBrightness(float brightness);
         void enable();
         int readRegister(char address);
+        void setLed(int index, float brightness);
 
 
     protected:
@@ -34,7 +35,7 @@ class TLC59116 {
 
 
         static const int GRPPWM = 0x12;
-        
+        static const int FIRSTLED = 0x02;
         
 
 
