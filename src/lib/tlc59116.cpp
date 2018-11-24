@@ -165,7 +165,7 @@ void TLC59116::right() {
 void TLC59116::left() {
     int speed = 200;
     
-    for (int i = 6; i > 0; i--) {
+    for (int i = 5; i > 0; i--) {
         clearLeds();
         setLedNr(i, 255, 255, 255);
         std::this_thread::sleep_for(std::chrono::milliseconds(speed));
