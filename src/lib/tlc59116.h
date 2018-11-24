@@ -20,12 +20,12 @@ class TLC59116 {
         void setLed(int index, float brightness);
         void setLedNr(int ledNumber, int red, int green, int blue);
         void clearLeds();
-        void clearLedNr(int ledNumber);
+        void disableLed(int ledNumber);
         
         
         void randomAll();
-        void arrowUp();
-        void arrowDown();
+        void insideOut();
+        void outsideIn();
         void left();
         void right();
         void colorLoop();

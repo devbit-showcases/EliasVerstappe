@@ -43,7 +43,6 @@ void TLC59116::setLedNr(int ledNumber, int red, int green, int blue) {
     //mss delays ertussen?
 }
 
-
 void TLC59116::initialize() {
     // oscillator set to normal mode 
     enable();
@@ -81,8 +80,8 @@ void TLC59116::clearLeds() {
     }
 }
 
-void TLC59116::clearLedNr(int ledNumber) {
-    //to be implemented #TODO
+void TLC59116::disableLed(int ledNumber) {
+    setLedNr(ledNumber, 0, 0, 0);
 }
 
 void TLC59116::randomAll() {
@@ -91,25 +90,86 @@ void TLC59116::randomAll() {
     }
 }
 
-void TLC59116::arrowUp() {
-    //TODO
+void TLC59116::insideOut() {
+    int speed = 200;
+
+    for (int i = 0; i < 4; i++) {
+        disableLed(1);
+        disableLed(2);
+        setLedNr(3, 255, 255, 255);
+        disableLed(4);
+        disableLed(5);
+        std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+
+        disableLed(1);
+        setLedNr(2, 255, 255, 255);
+        disableLed(3);
+        setLedNr(4, 255, 255, 255);
+        disableLed(5);
+        std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+
+        setLedNr(1, 255, 255, 255);
+        disableLed(2);
+        disableLed(3);
+        disableLed(4);
+        setLedNr(5, 255, 255, 255);
+        std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+    }
+    
 }
 
-void TLC59116::arrowDown() {
-    //TODO
-}
+void TLC59116::outsideIn() {
+    int speed = 200;
 
-void TLC59116::left() {
-    //TODO
+    for (int i = 0; i < 4; i++) {
+        setLedNr(1, 255, 255, 255);
+        disableLed(2);
+        disableLed(3);
+        disableLed(4);
+        setLedNr(5, 255, 255, 255);
+        std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+
+        disableLed(1);
+        setLedNr(2, 255, 255, 255);
+        disableLed(3);
+        setLedNr(4, 255, 255, 255);
+        disableLed(5);
+        std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+
+        disableLed(1);
+        disableLed(2);
+        setLedNr(3, 255, 255, 255);
+        disableLed(4);
+        disableLed(5);
+        std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+
+        
+    }
 }
 
 void TLC59116::right() {
-    //TODO
+    int speed = 200;
+
+    for (int i = 1; i < 6; i++) {
+        clearLeds();
+        setLedNr(i, 255, 255, 255);
+        std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+    }
+}
+
+void TLC59116::left() {
+    int speed = 1000;
+    
+    for (int i = 6; i > 0; i--) {
+        clearLeds();
+        setLedNr(i, 255, 255, 255);
+        std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+    }
 }
 
 void TLC59116::colorLoop() {
     int speed = 2;
-    
+
     for (int k = 0; k < 255; k++) {
         for (int i = 1; i < 6; i++) {
             setLedNr(i, 255, 0+k, 0);
