@@ -7,6 +7,7 @@
 #include <linux/i2c-dev.h>  // I2C_SLAVE
 #include <string>
 #include <thread>
+#include <stdlib.h>
 
 
 class TLC59116 {
@@ -20,6 +21,7 @@ class TLC59116 {
         void setLedNr(int ledNumber, int red, int green, int blue);
         void clearLeds();
         void clearLedNr(int ledNumber);
+        void randomAll();
 
 
     protected:

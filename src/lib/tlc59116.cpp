@@ -84,3 +84,9 @@ void TLC59116::clearLeds() {
 void TLC59116::clearLedNr(int ledNumber) {
     //to be implemented #TODO
 }
+
+void TLC59116::randomAll() {
+    for (int i = 2; i < 17; i++) {
+        setRegister(i, (rand() % 255));
+    }
+}
