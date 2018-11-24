@@ -90,3 +90,65 @@ void TLC59116::randomAll() {
         setRegister(i, (rand() % 255));
     }
 }
+
+void TLC59116::arrowUp() {
+    //TODO
+}
+
+void TLC59116::arrowDown() {
+    //TODO
+}
+
+void TLC59116::left() {
+    //TODO
+}
+
+void TLC59116::right() {
+    //TODO
+}
+
+void TLC59116::colorLoop() {
+    int speed = 2;
+    
+    for (int k = 0; k < 255; k++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 255, 0+k, 0);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 255-l, 255, 0);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 0, 255, 0+l);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 0, 255-l, 255);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 0+l, 0, 255);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 255, 0, 255-l);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+}
