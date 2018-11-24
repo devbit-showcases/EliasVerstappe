@@ -33,7 +33,7 @@ void TLC59116::setGroupBrightness(float brightness) {
 
 void TLC59116::setLed(int ledNumber, int hexValue) {
     setRegister((17 - ledNumber),  (((hexValue) & 0xFF) / 255.0));       //blue
-    /std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    //std::this_thread::sleep_for(std::chrono::milliseconds(50));
     setRegister((17 - ledNumber - 1), (((hexValue >> 8) & 0xFF) / 255.0));       //green
     //std::this_thread::sleep_for(std::chrono::milliseconds(50));
     setRegister((17 - ledNumber - 2), (((hexValue >> 16) & 0xFF) / 255.0));     //red
