@@ -26,17 +26,19 @@ void TLC59116::setGroupBrightness(float brightness) {
     setRegister(GRPPWM, brightness * 255.0);
 }
 
-// void TLC59116::setLed(int index, float brightness) {
-//     setRegister((FIRSTLED + (15-index)), (brightness * 255.0));
-// }
+void TLC59116::setLed(int index, float brightness) {
+    setRegister((FIRSTLED + (15-index)), (brightness * 255.0));
+}
 
+void TLC59116::setLedNr(int ledNumber, int red, int green, int blue) {
+    int LEDBASEADR[] = {16, 14, 12, 10, 8};
+    int ledIndex = ledNumber - 1;
 
-void TLC59116::setLed(int ledNumber, int hexValue) {
-    setRegister((17 - ledNumber),  (((hexValue) & 0xFF) / 255.0));       //blue
+    setRegister(LEDBASEADR[ledIndex], blue);       //blue
     //std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    setRegister((17 - ledNumber - 1), (((hexValue >> 8) & 0xFF) / 255.0));       //green
+    setRegister((LEDBASEADR[ledIndex] - 1), green);       //green
     //std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    setRegister((17 - ledNumber - 2), (((hexValue >> 16) & 0xFF) / 255.0));     //red
+    setRegister((LEDBASEADR[ledIndex] - 2), red);     //red
     //std::this_thread::sleep_for(std::chrono::milliseconds(50));
 }
 
@@ -70,4 +72,14 @@ int TLC59116::readRegister(char address) {
     read(i2cfile, data, 1);
 
     return data[0];
+}
+
+void TLC59116::clearLeds() {
+    for (int i = 2; i < 17; i++) {
+        setRegister(i, 0);
+    }
+}
+
+void TLC59116::clearLedNr(int ledNumber) {
+    //to be implemented #TODO
 }
