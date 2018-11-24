@@ -39,7 +39,7 @@ class TLC59116 {
 
         static const int GRPPWM = 0x12;
         static const int FIRSTLED = 0x02;
-        //static const int LEDBASEADR[] = {16, 14, 12, 10, 8};
+        
         
 
 

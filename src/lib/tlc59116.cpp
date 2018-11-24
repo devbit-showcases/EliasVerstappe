@@ -31,15 +31,16 @@ void TLC59116::setLed(int index, float brightness) {
 }
 
 void TLC59116::setLedNr(int ledNumber, int red, int green, int blue) {
-    int LEDBASEADR[] = {16, 14, 12, 10, 8};
+    int REDLEDS[] = {0x0E, 0x0B, 0x08, 0x05, 0x02};
+    int GREENLEDS[] = {0x0F, 0x0C, 0x09, 0x06, 0x03};
+    int BLUELEDS[] = {0x10, 0x0D, 0x0A, 0x07, 0x04};
+
     int ledIndex = ledNumber - 1;
 
-    setRegister(LEDBASEADR[ledIndex], blue);       //blue
-    //std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    setRegister((LEDBASEADR[ledIndex] - 1), green);       //green
-    //std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    setRegister((LEDBASEADR[ledIndex] - 2), red);     //red
-    //std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    setRegister(REDLEDS[ledIndex], red);       //red
+    setRegister(GREENLEDS[ledIndex], green);   //green
+    setRegister(BLUELEDS[ledIndex], blue);      //blue
+    //mss delays ertussen?
 }
 
 
