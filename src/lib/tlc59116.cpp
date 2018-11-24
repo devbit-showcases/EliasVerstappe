@@ -88,7 +88,6 @@ void TLC59116::randomAll() {
     for (int i = 2; i < 17; i++) {
         setRegister(i, (rand() % 255));
     }
-    clearLeds();
 }
 
 void TLC59116::insideOut() {
@@ -219,4 +218,11 @@ void TLC59116::colorLoop() {
     }
 
     clearLeds();
+}
+
+void TLC59116::randomWhite() {
+    int color[] = {0xFF, 0x3D, 0x18};
+
+    setLedNr((rand() % 5 + 1), color[(rand() % 2 + 1)], color[(rand() % 2 + 1)], color[(rand() % 2 + 1)]);
+
 }
