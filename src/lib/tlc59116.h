@@ -16,7 +16,7 @@ class TLC59116 {
         void setGroupBrightness(float brightness);
         void enable();
         int readRegister(char address);
-        void setLed(int index, float brightness);
+        void setLed(int index, int hexValue);
 
 
     protected:

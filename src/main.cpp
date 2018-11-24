@@ -57,13 +57,17 @@ int main(void) {
   // cout << "REGISTER 0x00 (before led brightness): " << led.readRegister(0x00) << endl;
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-  led.setLed(10, 0.5);
+  led.setLed(1, 0xFFFFFF);
+  led.setLed(2, 0xFFFFFF);
+  led.setLed(3, 0x0000FF);
+  led.setLed(4, 0xFF0000);
+  led.setLed(5, 0xFF0000);
 
 
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-  led.setGroupBrightness(0.1);
+  led.setGroupBrightness(0.3);
 
 
   
