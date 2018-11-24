@@ -88,6 +88,7 @@ void TLC59116::randomAll() {
     for (int i = 2; i < 17; i++) {
         setRegister(i, (rand() % 255));
     }
+    clearLeds();
 }
 
 void TLC59116::insideOut() {
@@ -114,6 +115,8 @@ void TLC59116::insideOut() {
         disableLed(4);
         setLedNr(5, 255, 255, 255);
         std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+
+        clearLeds();
     }
     
 }
@@ -143,6 +146,7 @@ void TLC59116::outsideIn() {
         disableLed(5);
         std::this_thread::sleep_for(std::chrono::milliseconds(speed));
 
+        clearLeds();
         
     }
 }
@@ -154,16 +158,18 @@ void TLC59116::right() {
         clearLeds();
         setLedNr(i, 255, 255, 255);
         std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        clearLeds();
     }
 }
 
 void TLC59116::left() {
-    int speed = 1000;
+    int speed = 200;
     
     for (int i = 6; i > 0; i--) {
         clearLeds();
         setLedNr(i, 255, 255, 255);
         std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        clearLeds();
     }
 }
 
@@ -211,4 +217,6 @@ void TLC59116::colorLoop() {
             std::this_thread::sleep_for(std::chrono::milliseconds(speed));
         }       
     }
+
+    clearLeds();
 }
