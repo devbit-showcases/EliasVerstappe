@@ -6,7 +6,7 @@ CFLAGS=-c -Wall -std=c++11
     # -Wall: This enables all the warnings about constructions that some users consider questionable, and that are easy to avoid (or modify to prevent the warning), even in conjunction with macros.
 # LDFLAGS=
 # Libraries
-LIBS=
+LIBS=-lpaho-mqttpp3 -lpaho-mqtt3a -lpthread -lbioslogger -lsimple_mqtt_client
 # Name of executable output
 TARGET=nubg_touchberry
 SRCDIR=src
