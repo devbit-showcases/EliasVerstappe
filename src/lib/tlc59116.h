@@ -30,6 +30,7 @@ class TLC59116 {
         void right();
         void colorLoop();
         void randomWhite();
+        void prettyColors();
 
 
     protected:

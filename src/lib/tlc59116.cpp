@@ -226,3 +226,14 @@ void TLC59116::randomWhite() {
     setLedNr((rand() % 5 + 1), color[(rand() % 2 + 1)], color[(rand() % 2 + 1)], color[(rand() % 2 + 1)]);
 
 }
+
+void TLC59116::prettyColors() {
+
+    setLedNr(1, 0xAA, 0, 0);
+    setLedNr(2, 0xAA, 0xA8, 0);
+    setLedNr(3, 0, 0xAA, 0x25);
+    setLedNr(4, 0, 0x41, 0xAA);
+    setLedNr(5, 0x55, 0, 0xAA);
+
+    setGroupBrightness(0.1);
+}
