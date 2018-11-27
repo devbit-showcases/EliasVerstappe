@@ -48,7 +48,8 @@ https://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-l
 TLC59116 library; visited on 21/11/2018; 
 https://os.mbed.com/users/sillevl/code/TLC59116/
 
-
+RGB to HSL;
+https://www.programmingalgorithms.com/algorithm/rgb-to-hsl?lang=C%2B%2B
 
 ## Extra's
 
