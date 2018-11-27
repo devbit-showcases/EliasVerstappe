@@ -2,6 +2,10 @@
 using namespace std;
 #include "lib/qt1070.h"
 #include "lib/tlc59116.h"
+#include <simple_mqtt_client/simple_mqtt_client.h>
+
+
+using namespace BiosSimpleMqttClient;
 
 enum Key {
   NONE = 0,
@@ -40,29 +44,32 @@ class KeyConverter {
     }
 };
 
+const std::string SERVER_ADDRESS("tcp://mqtt.labict.be:1883");
+const std::string CLIENT_ID("eeltbal123456");
+const std::string TOPIC("test/hello");
 
 int main(void) {
 
-    std::cout << "\n\n\033[7m+-------------------------------+" << std::endl;
-    std::cout << "|Starting touchberry application|" << std::endl;
-    std::cout << "+-------------------------------+\033[0m\n" << std::endl; 
-    
+  std::cout << "\n\n\033[7m+-------------------------------+" << std::endl;
+  std::cout << "|Starting touchberry application|" << std::endl;
+  std::cout << "+-------------------------------+\033[0m\n" << std::endl; 
 
   QT1070 touch;
   TLC59116 led;
   Key button;
 
-
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
   led.clearLeds();
 
+  SimpleMQTTClient simpleClient(SERVER_ADDRESS, CLIENT_ID);
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-
+  MQTTMessage message(TOPIC, "Hello @ ALL from Elias");
+  simpleClient.publish(message);
 
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
 
   while (1) {
   button = (Key)touch.button_pressed();
@@ -100,8 +107,7 @@ int main(void) {
 
         case A :
           for (int i = 0; i < 50; i++) {
-            led.randomWhite();
-            std::this_thread::sleep_for(std::chrono::milliseconds(20));
+            led.prettyColors();
           }
           led.clearLeds();
           break;
@@ -111,6 +117,7 @@ int main(void) {
     }
 
   }
+
 
   return 0;
 }
