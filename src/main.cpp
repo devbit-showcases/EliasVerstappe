@@ -47,8 +47,24 @@ class KeyConverter {
 const std::string SERVER_ADDRESS("tcp://mqtt.labict.be:1883");
 const std::string CLIENT_ID("eeltbal123456");
 const std::string TOPIC("test/hello");
+const std::string JOIN("test/nubg/join");
+const std::string UPDATE("test/nubg/devgame/update");
+
 
 int main(void) {
+
+  std::string registerTank = "{ \"name\": \"eeltbal\" }";
+  std::string JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0YW5rX2lkIjoiMmZiZTNiODM1N2U0NmJiZTRjOWY3ZGFkOTVlMWU5ZmRmMzNkZWY1ZSIsImdhbWVfaWQiOiJkZXZnYW1lIn0.R1NvwJJBPjVMpiUUuq50Cl7XWtC1046e6cCG5m-fkMk";
+  
+  std::string driveFwd = "{ \"token\": \"" + JWT_TOKEN + "\", \"drive\": 10, \"turn\": 0 }";
+  std::string driveBwd = "{ \"token\": \"" + JWT_TOKEN + "\", \"drive\": -10, \"turn\": 0 }";
+  std::string turnLeft = "{ \"token\": \"" + JWT_TOKEN + "\", \"drive\": 10, \"turn\": -30 }";
+  std::string turnRight = "{ \"token\": \"" + JWT_TOKEN + "\", \"drive\": 10, \"turn\": 30 }";
+
+
+
+
+
 
   std::cout << "\n\n\033[7m+-------------------------------+" << std::endl;
   std::cout << "|Starting touchberry application|" << std::endl;
@@ -59,17 +75,19 @@ int main(void) {
   Key button;
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
   led.clearLeds();
 
+  std::cout << "\033[4;35mMaking MQTT connection...\033[0m" << std::endl;
   SimpleMQTTClient simpleClient(SERVER_ADDRESS, CLIENT_ID);
-  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  std::this_thread::sleep_for(std::chrono::milliseconds(2500));
+  std::cout << "\033[4;35mConnected succesfully!\033[0m" << std::endl;
 
-  MQTTMessage message(TOPIC, "Hello @ ALL from Elias");
+
+
+  MQTTMessage message(JOIN, registerTank);
   simpleClient.publish(message);
-
-
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
 
   while (1) {
   button = (Key)touch.button_pressed();
@@ -77,39 +95,38 @@ int main(void) {
       cout << "Button pressed: " << KeyConverter::key_to_string(button) << endl;
 
       switch(button) {
-        case RIGHT :
-          led.right();
-          break;
+        case RIGHT : {
+          MQTTMessage message(UPDATE, turnRight);
+          simpleClient.publish(message);
+          std::this_thread::sleep_for(std::chrono::milliseconds(75));
+          break;}
         
-        case LEFT :
-          led.left();
-          break;
+        case LEFT : {
+          MQTTMessage message(UPDATE, turnLeft);
+          simpleClient.publish(message);
+          std::this_thread::sleep_for(std::chrono::milliseconds(75));
+          break;}
 
-        case UP :
-          led.insideOut();
-          break;
+        case UP : {
+          MQTTMessage message(UPDATE, driveFwd);
+          simpleClient.publish(message);
+          break;}
         
-        case DOWN :
-          led.outsideIn();
-          break;
+        case DOWN : {
+          MQTTMessage message(UPDATE, driveBwd);
+          simpleClient.publish(message);
+          break;}
 
         case B :
-          led.colorLoop();
+        
           break;
         
         case X :
-          for (int i = 0; i < 50; i++) {
-            led.randomAll();
-            std::this_thread::sleep_for(std::chrono::milliseconds(20));
-          }
-          led.clearLeds();
+        
           break;
 
         case A :
-          for (int i = 0; i < 50; i++) {
-            led.prettyColors();
-          }
-          led.clearLeds();
+        
           break;
         
       }
