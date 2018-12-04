@@ -43,6 +43,20 @@ void TLC59116::setLedNr(int ledNumber, int red, int green, int blue) {
     //mss delays ertussen?
 }
 
+void TLC59116::setAllLeds(int red, int green, int blue) {
+    int REDLEDS[] = {0x0E, 0x0B, 0x08, 0x05, 0x02};
+    int GREENLEDS[] = {0x0F, 0x0C, 0x09, 0x06, 0x03};
+    int BLUELEDS[] = {0x10, 0x0D, 0x0A, 0x07, 0x04};
+
+    for (int i = 0; i < 5; i++){
+        setRegister(REDLEDS[i], red);       //red
+        setRegister(GREENLEDS[i], green);   //green
+        setRegister(BLUELEDS[i], blue);      //blue
+    }
+    
+}
+
+
 void TLC59116::initialize() {
     // oscillator set to normal mode 
     enable();

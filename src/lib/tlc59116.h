@@ -19,6 +19,7 @@ class TLC59116 {
         int readRegister(char address);
         void setLed(int index, float brightness);
         void setLedNr(int ledNumber, int red, int green, int blue);
+        void setAllLeds(int red, int green, int blue);
         void clearLeds();
         void disableLed(int ledNumber);
         
