@@ -98,23 +98,29 @@ int main(void) {
         case RIGHT : {
           MQTTMessage message(UPDATE, turnRight);
           simpleClient.publish(message);
+          led.setLedNr(4, 0, 0, 0xCC);
+          led.setLedNr(5, 0, 0, 0xCC);
           std::this_thread::sleep_for(std::chrono::milliseconds(75));
           break;}
         
         case LEFT : {
           MQTTMessage message(UPDATE, turnLeft);
           simpleClient.publish(message);
+          led.setLedNr(1, 0, 0, 0xCC);
+          led.setLedNr(2, 0, 0, 0xCC);
           std::this_thread::sleep_for(std::chrono::milliseconds(75));
           break;}
 
         case UP : {
           MQTTMessage message(UPDATE, driveFwd);
           simpleClient.publish(message);
+          led.setAllLeds(0, 0xCC, 0);
           break;}
         
         case DOWN : {
           MQTTMessage message(UPDATE, driveBwd);
           simpleClient.publish(message);
+          led.setAllLeds(0x99, 0, 0);
           break;}
 
         case B :
@@ -128,6 +134,9 @@ int main(void) {
         case A :
         
           break;
+
+
+        led.clearLeds();
         
       }
         
