@@ -136,12 +136,13 @@ int main(void) {
           break;
 
 
-        led.clearLeds();
+        
         
       }
         
     }
-
+  
+  led.clearLeds();
   }
 
 
