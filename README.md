@@ -55,19 +55,38 @@ int QT1070::get_chip_id() {
 
 As I said, we need to read the content of a register. To do that you first have to put a 'pointer' on the address where you want to read data from.
 
+That is indicated by the `// Write` part. We write `0x00`, wich is the address for the Chip ID.
+After a short delay, the read function is executed. The function returns the Chip ID.
 
+For the buttons the function is very similair. the only part that changes is the register address where data is read from (changes from `0x00` to `0x03`).
 
 
 
 ### Leds
 
 
+To use the leds, we first need to enable the oscillator and then enable PWM control.
+All of that is done in the `TLC59116` default contructor. First the I2C connection is established and then the `initialize` function is called, which enables the oscillator (via the `enable` function in the `initialize` function). Thereafter PWM is enaled.
 
+I have also made various functions that control the leds such as enabling a single led, all leds, clear one or all leds...
+
+You will also find a couple functions that perform animations.
+
+
+TODO - setLedNr.....
+
+![datasheet_led_addresses](/media/led_addresses.PNG)
+
+One of these functions is `colorLoop`.TODO
 
 
 
 ## MQTT
 
+
+I have used [this example](https://github.com/iot-devices-2019/simple_mqtt_client/blob/master/examples/hello_mqtt.cpp) to find out how to use mqtt.
+
+The MQTT library's have been installed using the setup script.
 
 
 
@@ -123,10 +142,17 @@ https://os.mbed.com/users/sillevl/code/TLC59116/
 RGB to HSL;
 https://www.programmingalgorithms.com/algorithm/rgb-to-hsl?lang=C%2B%2B
 
+HSL to RGB;
+https://www.programmingalgorithms.com/algorithm/hsl-to-rgb?lang=C%2B%2B
+
+TLC59116 datasheet;
+http://www.ti.com/lit/ds/symlink/tlc59116.pdf
+
+
 ## Extra's
 
 The buttons and their values   
-![buttons_and_their_values](/media/buttons_and_their_values.png)
+![buttons_and_their_values](/media/buttons_and_their_values.PNG)
 
 
 
