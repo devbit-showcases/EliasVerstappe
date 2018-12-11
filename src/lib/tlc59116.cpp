@@ -196,12 +196,8 @@ void TLC59116::colorLoop() {
     for (int k = 0; k < 360; k++) {
         for (int i = 1; i < 6; i++) {
             data = HSL(k, 1.00f, 0.50f);
-
             value = HSLToRGB(data);
-
-
             setLedNr(i, value.R, value.G, value.B);
-
             std::this_thread::sleep_for(std::chrono::milliseconds(speed));
         }
     }       
