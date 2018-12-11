@@ -8,6 +8,8 @@
 #include <string>
 #include <thread>
 #include <stdlib.h>
+#include "rgb.h"
+#include "hsl.h"
 
 
 class TLC59116 {

@@ -124,10 +124,12 @@ int main(void) {
           break;}
 
         case B :
+          led.colorLoop();
         
           break;
         
         case X :
+          
         
           break;
 

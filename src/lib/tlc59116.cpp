@@ -187,49 +187,24 @@ void TLC59116::left() {
 }
 
 void TLC59116::colorLoop() {
+
+    HSL data = HSL(0, 1.00f, 0.50f);
+    RGB value = HSLToRGB(data);
+
     int speed = 2;
 
-    for (int k = 0; k < 255; k++) {
+    for (int k = 0; k < 360; k++) {
         for (int i = 1; i < 6; i++) {
-            setLedNr(i, 255, 0+k, 0);
-            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
-        }       
-    }
+            data = HSL(k, 1.00f, 0.50f);
 
-    for (int l = 0; l < 255; l++) {
-        for (int i = 1; i < 6; i++) {
-            setLedNr(i, 255-l, 255, 0);
-            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
-        }       
-    }
+            value = HSLToRGB(data);
 
-    for (int l = 0; l < 255; l++) {
-        for (int i = 1; i < 6; i++) {
-            setLedNr(i, 0, 255, 0+l);
-            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
-        }       
-    }
 
-    for (int l = 0; l < 255; l++) {
-        for (int i = 1; i < 6; i++) {
-            setLedNr(i, 0, 255-l, 255);
-            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
-        }       
-    }
+            setLedNr(i, value.R, value.G, value.B);
 
-    for (int l = 0; l < 255; l++) {
-        for (int i = 1; i < 6; i++) {
-            setLedNr(i, 0+l, 0, 255);
             std::this_thread::sleep_for(std::chrono::milliseconds(speed));
-        }       
-    }
-
-    for (int l = 0; l < 255; l++) {
-        for (int i = 1; i < 6; i++) {
-            setLedNr(i, 255, 0, 255-l);
-            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
-        }       
-    }
+        }
+    }       
 
     clearLeds();
 }
