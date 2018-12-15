@@ -89,7 +89,9 @@ void TLC59116::setLedNr(int ledNumber, int red, int green, int blue) {
 }
 ```
 
-First I make three arrays that contain addresses which correspond with one of the three RGB colors.
+First I make three arrays that contain addresses which correspond with one of the three RGB colors (see images below).
+Next I make a local variable that 'converts' the LED number to the index (because on the shield you can find led1, led2...).
+Finally I set these three leds by writing the corresponding R, G or B value to the register with the R, G or B address.
 
 Here are the addresses we can find in the datasheet:
 ![datasheet_led_addresses](/media/led_addresses.PNG)
@@ -98,11 +100,78 @@ And here you can find what LED corresponds with what address.
 ![led_addresses_shield](/media/led_addresses_shield.PNG)
 
 
+
 One of these functions is `colorLoop`.
 If I wanted to use RGB color represenataion, I would have had to make 6 loops that do alost the same thing. The difference beeing that the R, G and B value have to be incremented or decremented.
 ![color_loop_explained](/media/color_loop_explained.PNG)
+the code would look like this:
+```cpp
+void TLC59116::colorLoop() {
+    int speed = 2;
+    for (int k = 0; k < 255; k++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 255, 0+k, 0);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+     for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 255-l, 255, 0);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 0, 255, 0+l);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 0, 255-l, 255);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 0+l, 0, 255);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }
+    for (int l = 0; l < 255; l++) {
+        for (int i = 1; i < 6; i++) {
+            setLedNr(i, 255, 0, 255-l);
+            setLedNr(i, value.R, value.G, value.B);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }       
+    }     
+    clearLeds();
+}
+```
+As you can see this is a lot of code and it is not DRY.
 
-this is 
+I fixes this by using a RGB to HSL converter. If you represent color with an HSL code, only one vaiabe has to change. I have found this conversion on the internet, a link can be found in the **Sources** part of this document.
+
+the function can be simplified a lot, as you can see here:
+```cpp
+void TLC59116::colorLoop() {
+    HSL data = HSL(0, 1.00f, 0.50f);
+    RGB value = HSLToRGB(data);
+
+    int speed = 2;
+
+    for (int k = 0; k < 360; k++) {
+        for (int i = 1; i < 6; i++) {
+            data = HSL(k, 1.00f, 0.50f);
+            value = HSLToRGB(data);
+            setLedNr(i, value.R, value.G, value.B);
+            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+        }
+    }       
+    clearLeds();
+}
+```
+This function is basically a loop that changes the **hue** value from 0 to 359 at e certain speed.
 
 
 
@@ -115,8 +184,9 @@ The MQTT library's have been installed using the setup script.
 
 
 
+## Summary
 
-
+What I have learned from this project is that I2C communication is super easy to do. The only thing you have to do is write some value to some register address. This was a fun and educational assignment.
 
 
 ## Full implementation
