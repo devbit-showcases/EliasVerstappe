@@ -73,11 +73,36 @@ I have also made various functions that control the leds such as enabling a sing
 You will also find a couple functions that perform animations.
 
 
-TODO - setLedNr.....
+Here you can see the `setLedNr` function, which makes a certain LED light up in the color you want.
 
+```cpp
+void TLC59116::setLedNr(int ledNumber, int red, int green, int blue) {
+    int REDLEDS[] = {0x0E, 0x0B, 0x08, 0x05, 0x02};
+    int GREENLEDS[] = {0x0F, 0x0C, 0x09, 0x06, 0x03};
+    int BLUELEDS[] = {0x10, 0x0D, 0x0A, 0x07, 0x04};
+
+    int ledIndex = ledNumber - 1;
+
+    setRegister(REDLEDS[ledIndex], red);       //red
+    setRegister(GREENLEDS[ledIndex], green);   //green
+    setRegister(BLUELEDS[ledIndex], blue);     //blue
+}
+```
+
+First I make three arrays that contain addresses which correspond with one of the three RGB colors.
+
+Here are the addresses we can find in the datasheet:
 ![datasheet_led_addresses](/media/led_addresses.PNG)
 
-One of these functions is `colorLoop`.TODO
+And here you can find what LED corresponds with what address.
+![led_addresses_shield](/media/led_addresses_shield.PNG)
+
+
+One of these functions is `colorLoop`.
+If I wanted to use RGB color represenataion, I would have had to make 6 loops that do alost the same thing. The difference beeing that the R, G and B value have to be incremented or decremented.
+![color_loop_explained](/media/color_loop_explained.PNG)
+
+this is 
 
 
 
@@ -147,12 +172,6 @@ https://www.programmingalgorithms.com/algorithm/hsl-to-rgb?lang=C%2B%2B
 
 TLC59116 datasheet;
 http://www.ti.com/lit/ds/symlink/tlc59116.pdf
-
-
-## Extra's
-
-The buttons and their values   
-![buttons_and_their_values](/media/buttons_and_their_values.PNG)
 
 
 
