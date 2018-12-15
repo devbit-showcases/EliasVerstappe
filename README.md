@@ -2,7 +2,7 @@
 
 ## Project description
 
-This project is an assignment from the 'IoT devices' course. The intention is to control a robot via the raspberry pi.
+This project is an assignment from the 'IoT devices' course. The purpose of the assignment is to control a robot via the Raspberry Pi.
 
 
 ## Usage example
@@ -14,8 +14,8 @@ To compile AND execute, execute `make && ./bin/nubg_touchberry` in the terminal.
 
 ## TouchBerry Pi Shield
 
-The TouchBerry Pi Shield is an extention board for the raspberry pi and has two I²C chips.
-The QT1070 is the chip that controls the buttons. The TLC59116 is an I²C chip that controls the LEDs.
+The TouchBerry Pi Shield is an extension board for the Raspberry Pi and has two I2C chips.
+The QT1070 is the chip that controls the buttons. The TLC59116 is an I2C chip that controls the LEDs.
 
 ![TouchBerry Pi Shield](/media/touch_shield.jpg)
 
@@ -25,9 +25,9 @@ The QT1070 is the chip that controls the buttons. The TLC59116 is an I²C chip t
 The QT1070 chip is used to manage the buttons. I have written a `QT1070` class.
 
 The default constructor initializes the chip.
-Next, the class has 2  functions (`get_chip_id` and `button_pressed`).
+Next, you will find two other functions in the class (`get_chip_id` and `button_pressed`).
 
-These functions are actually really simple. All they do is read data from a register, a list of all registers can be found in the datasheet of the QT1070 chip.
+These functions are actually really simple. All they do is read data from a register. A list of all registers can be found in the datasheet of the QT1070 chip.
 
 ![QT1070 registers](/media/qt1070_reg.PNG)
 
@@ -53,24 +53,24 @@ int QT1070::get_chip_id() {
 }
 ```
 
-As I said, we need to read the content of a register. To do that you first have to put a 'pointer' on the address where you want to read data from.
+As I said, we need to read the content of a register. In order to do that you first have to put a 'pointer' on the address where you want to read data from.
 
-That is indicated by the `// Write` part. We write `0x00`, wich is the address for the Chip ID.
+That is indicated by the `// Write` part. We write `0x00`, which is the address for the Chip ID.
 After a short delay, the read function is executed. The function returns the Chip ID.
 
-For the buttons the function is very similair. the only part that changes is the register address where data is read from (changes from `0x00` to `0x03`).
+For the buttons the function is very similar. The only part that changes is the register address where data is read from (changes from `0x00` to `0x03`).
 
 
 
-### Leds
+### LEDs
 
 
-To use the leds, we first need to enable the oscillator and then enable PWM control.
-All of that is done in the `TLC59116` default contructor. First the I2C connection is established and then the `initialize` function is called, which enables the oscillator (via the `enable` function in the `initialize` function). Thereafter PWM is enaled.
+To use the LEDs, we first need to enable the oscillator and then enable PWM control.
+All of that is done in the `TLC59116` default constructor. First the I2C connection is established and then the `initialize` function is called, which enables the oscillator (via the `enable` function in the `initialize` function). Thereafter PWM is enabled.
 
-I have also made various functions that control the leds such as enabling a single led, all leds, clear one or all leds...
+I have also made various functions that control the LEDs such as enabling a single LED, all LEDs, or to clear one or all LEDs...
 
-You will also find a couple functions that perform animations.
+You will also find a couple of functions that perform animations.
 
 
 Here you can see the `setLedNr` function, which makes a certain LED light up in the color you want.
@@ -89,9 +89,9 @@ void TLC59116::setLedNr(int ledNumber, int red, int green, int blue) {
 }
 ```
 
-First I make three arrays that contain addresses which correspond with one of the three RGB colors (see images below).
-Next I make a local variable that 'converts' the LED number to the index (because on the shield you can find led1, led2...).
-Finally I set these three leds by writing the corresponding R, G or B value to the register with the R, G or B address.
+First I make three arrays that contain addresses each of which corresponds with one of the three RGB colors (see images below).
+Next I make a local variable that 'converts' the LED number to the index (because on the shield you can find LED1, LED2...).
+Finally I turn on these three LEDs by writing the corresponding R, G or B value to the register with the R, G or B address.
 
 Here are the addresses we can find in the datasheet:
 ![datasheet_led_addresses](/media/led_addresses.PNG)
@@ -102,9 +102,11 @@ And here you can find what LED corresponds with what address.
 
 
 One of these functions is `colorLoop`.
-If I wanted to use RGB color represenataion, I would have had to make 6 loops that do alost the same thing. The difference beeing that the R, G and B value have to be incremented or decremented.
+If I had wanted to use RGB color representation, I would have had to make 6 loops that perform almost the same function. The difference being that the R, G and B values have to be incremented or decremented.
 ![color_loop_explained](/media/color_loop_explained.PNG)
-the code would look like this:
+
+The code would look like this:
+
 ```cpp
 void TLC59116::colorLoop() {
     int speed = 2;
@@ -150,9 +152,9 @@ void TLC59116::colorLoop() {
 ```
 As you can see this is a lot of code and it is not DRY.
 
-I fixes this by using a RGB to HSL converter. If you represent color with an HSL code, only one vaiabe has to change. I have found this conversion on the internet, a link can be found in the **Sources** part of this document.
+I fixes this by using an RGB to HSL converter. If you represent color with an HSL code, only one variable has to be changed. I have found this conversion on the internet, a link can be found in the **Sources** part of this document.
 
-the function can be simplified a lot, as you can see here:
+The function can be simplified a lot, as you can see here:
 ```cpp
 void TLC59116::colorLoop() {
     HSL data = HSL(0, 1.00f, 0.50f);
@@ -171,7 +173,7 @@ void TLC59116::colorLoop() {
     clearLeds();
 }
 ```
-This function is basically a loop that changes the **hue** value from 0 to 359 at e certain speed.
+This function is basically a loop that changes the **hue** value from 0 to 359 at a certain speed.
 
 
 
@@ -180,13 +182,13 @@ This function is basically a loop that changes the **hue** value from 0 to 359 a
 
 I have used [this example](https://github.com/iot-devices-2019/simple_mqtt_client/blob/master/examples/hello_mqtt.cpp) to find out how to use mqtt.
 
-The MQTT library's have been installed using the setup script.
+The MQTT libraries have been installed using the setup script, which can also be found in this project directory.
 
 
 
 ## Summary
 
-What I have learned from this project is that I2C communication is super easy to do. The only thing you have to do is write some value to some register address. This was a fun and educational assignment.
+What I have learned from this project is that I2C communication is super easy to do. The only thing you have to do is write some value to some register address. To me, this was a fun and educational assignment.
 
 
 ## Full implementation
